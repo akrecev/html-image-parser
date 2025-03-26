@@ -1,0 +1,60 @@
+## YAML Template.
+---
+server:
+    port: 8080
+    api-base-url: /api/v1
+    max-http-header-size: 32768
+spring:
+  application:
+    name: img_parser
+  config:
+    import: optional:file:.env[.properties]
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+    view:
+      dispatch-options-request: true
+    pathmatch:
+      matching-strategy: ant_path_matcher    
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 15MB   
+  thymeleaf:
+    suffix: .html
+    encoding: UTF-8
+    templateMode: HTML
+    cache: false
+    servlet:
+        content-type: text/html
+    check-template-location: false    
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${parser_db_url}
+    username: ${parser_db_user}
+    password: ${parser_db_password}
+    hikari:
+      allow-pool-suspension: true
+  jpa:
+    database: POSTGRESQL
+    generate-ddl: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        order_inserts: true
+        order_updates: true
+        batch_versioned_data: true 
+        jdbc:
+            batch_size: 5000
+
+#        jdbc.lob.non_contextual_creation: true #HHH-12368
+    hibernate:
+      ddl-auto: none
+      hibernate.show_sql: true
+  sql:
+    init:
+      platform: postgres
+
+keycloak:
+  clientid: parser-client
