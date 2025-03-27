@@ -1,4 +1,4 @@
-package com.ask.parser.service;
+package com.ask.parser.service.htmlservice.impl;
 
 import com.ask.exception.ExceptInfoUser;
 import org.springframework.stereotype.Service;

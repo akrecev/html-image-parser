@@ -1,10 +1,7 @@
 package com.ask.parser.controller;
 
 import com.ask.exception.ExceptInfoUser;
-import com.ask.parser.conf.js.ConfJs;
-import com.ask.parser.service.HtmlDownloader;
-import com.ask.parser.service.ImageDownloader;
-import com.ask.parser.service.ImageParser;
+import com.ask.parser.service.ParseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.File;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.ask.parser.controller.Contr.ROUTE_BASE;
@@ -25,10 +20,7 @@ public class ImageParserController {
     public static final String DEFAULT_URL_PARSE_MAPPING = ROUTE_BASE + PARSE_MAPPING;
     public static final String OK_MESSAGE = "Данные успешно получены!";
 
-
-    private final HtmlDownloader htmlDownloader;
-    private final ImageParser imageParser;
-    private final ImageDownloader imageDownloader;
+    private final ParseService parseService;
 
     @GetMapping(DEFAULT_URL_PARSE_MAPPING)
     public String showForm(Model model) {
@@ -44,9 +36,7 @@ public class ImageParserController {
             Model model) {
 
         try {
-            String html = htmlDownloader.downloadHtml(url);
-            List<String> parseImageUrls = imageParser.parseImageUrls(html, url);
-            imageDownloader.downloadImages(parseImageUrls, ConfJs.getInstance().getApp().getOutputDir() + File.separator + folderPath);
+            parseService.parse(url, folderPath);
 
             model.addAttribute("folderPath", folderPath);
             model.addAttribute("url", url);
