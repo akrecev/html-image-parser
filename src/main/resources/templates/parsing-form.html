@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Настройки загрузки</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div>
+    <h1>Настройки загрузки</h1>
+
+    <form method="post" th:action="@{/parse}">
+        <div style="margin-bottom: 15px;">
+            <label for="folderPath">Путь к папке загрузки:</label>
+            <input type="text" id="folderPath" name="folderPath"
+                   th:value="${folderPath}" style="width: 300px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="url">URL:</label>
+            <input type="text" id="url" name="url"
+                   th:value="${url}" style="width: 300px;">
+        </div>
+
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <div th:if="${message}" style="margin-top: 15px; color: green;">
+        <span th:text="${message}"></span>
+    </div>
+
+    <div th:if="${errors}" style="margin-top: 15px; color: red;">
+        <span th:text="${errors}"></span>
+    </div>
+</div>
+</body>
+</html>

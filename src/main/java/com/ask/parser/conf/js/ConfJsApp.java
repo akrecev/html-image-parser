@@ -20,6 +20,7 @@ public class ConfJsApp extends com.ask.config.js.ConfJsApp {
     private String nameServer;
     private String urlBase;
     private String serverType;
+    private String outputDir;
     public String actionServiceUrlCreate;
     public String actionServiceUrlClose;
     public String keycloakOpenidUrl;
@@ -56,6 +57,7 @@ public class ConfJsApp extends com.ask.config.js.ConfJsApp {
             nameServer = getStringRequired(p_xParser, "name");
             urlBase = getStringRequired(p_xParser, "url_base");
             serverType = getStringRequired(p_xParser, "server_type");
+            outputDir = getStringRequired(p_xParser, "output_directory");
             domain = getStringRequired(p_xParser, "domain");
             hikariPoolMaxSize = getIntRequired(p_xParser, "hikari_pool_max_size");
             // API
@@ -83,6 +85,10 @@ public class ConfJsApp extends com.ask.config.js.ConfJsApp {
 
     public String getUrlBase() {
         return urlBase;
+    }
+
+    public String getOutputDir() {
+        return outputDir;
     }
 
     public String getActionServiceUrlCreate() {
@@ -136,6 +142,7 @@ public class ConfJsApp extends com.ask.config.js.ConfJsApp {
     public String toString() {
         return "urlBase=" + urlBase + "\n"
                 + "serverType=" + serverType + "\n"
+                + "outputDir=" + outputDir + "\n"
                 + "domain=" + domain + "\n"
                 + "actionServiceUrlCreate=" + actionServiceUrlCreate + "\n"
                 + "actionServiceUrlClose=" + actionServiceUrlClose + "\n"

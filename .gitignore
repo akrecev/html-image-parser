@@ -73,3 +73,6 @@ nb-configuration.xml
 # enviroments
 .env
 conf_img_parser_server.json
+
+# downloads
+downloads/
