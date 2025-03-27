@@ -37,7 +37,7 @@ public class HtmlDownloader {
             throw new ExceptInfoUser(Map.of("Некорректный URL: ", urlString));
         } catch (MalformedURLException e) {
             throw new ExceptInfoUser(Map.of("Неправильный формат URL: ", urlString));
-        } catch (IllegalArgumentException e) { // Добавляем обработку
+        } catch (IllegalArgumentException e) {
             throw new ExceptInfoUser(Map.of("Ошибка: ", "Требуется абсолютный URL (например, https://example.com): " + urlString));
         } catch (IOException e) {
             throw new ExceptInfoUser(Map.of("Ошибка загрузки: ", e.getMessage()));
