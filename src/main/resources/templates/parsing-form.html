@@ -9,7 +9,6 @@
 <div>
     <h1>Настройки загрузки</h1>
 
-    <!-- Исправлено: th:action="@{/parse}" вместо @{/folder} -->
     <form method="post" th:action="@{/parse}">
         <div style="margin-bottom: 15px;">
             <label for="folderPath">Путь к папке загрузки:</label>
@@ -28,6 +27,10 @@
 
     <div th:if="${message}" style="margin-top: 15px; color: green;">
         <span th:text="${message}"></span>
+    </div>
+
+    <div th:if="${errors}" style="margin-top: 15px; color: red;">
+        <span th:text="${errors}"></span>
     </div>
 </div>
 </body>

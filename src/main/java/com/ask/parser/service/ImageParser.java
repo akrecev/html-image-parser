@@ -14,24 +14,23 @@ import java.util.List;
 public class ImageParser {
     public static final String ERROR_CODE_01 = "ErrImageParser01";
 
-    public List<String> parseImageUrls(String html) {
+    public List<String> parseImageUrls(String html, String baseUrl) {
         List<String> imageUrls = new ArrayList<>();
 
         try {
-            Document doc = Jsoup.parse(html);
+            Document doc = Jsoup.parse(html, baseUrl);
             Elements imgTags = doc.select("img");
 
             for (Element img : imgTags) {
-                String src = img.attr("src");
+                String src = img.attr("abs:src");
                 if (!src.isEmpty()) {
                     imageUrls.add(src);
                 }
             }
         } catch (Exception e) {
-            throw new Except4Support(ERROR_CODE_01, "Error to parse html");
+            throw new Except4Support(ERROR_CODE_01, "Error to parse html: " + e.getMessage());
         }
 
         return imageUrls;
     }
 }
-
