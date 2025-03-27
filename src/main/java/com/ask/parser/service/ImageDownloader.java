@@ -36,7 +36,7 @@ public class ImageDownloader {
         File directory = new File(outputDir);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
-                throw new Except4Support(ERROR_CODE_01, "Failed to create output directory: " + outputDir);
+                throw new Except4Support(ERROR_CODE_01, "Ошибка создания папки для загрузки: " + outputDir);
             }
         }
 
@@ -56,7 +56,6 @@ public class ImageDownloader {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            System.err.println("Interrupted while waiting for downloads to complete");
         }
 
         if (!downloadErrors.isEmpty()) {
