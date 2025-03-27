@@ -1,9 +1,10 @@
 package com.ask.parser.controller;
 
 import com.ask.exception.ExceptInfoUser;
+import com.ask.parser.conf.js.ConfJs;
 import com.ask.parser.service.HtmlDownloader;
+import com.ask.parser.service.ImageDownloader;
 import com.ask.parser.service.ImageParser;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -31,6 +33,7 @@ public class ImageParserController {
 
     private final HtmlDownloader htmlDownloader;
     private final ImageParser imageParser;
+    private final ImageDownloader imageDownloader;
 
     @GetMapping(DEFAULT_URL_PARSE_MAPPING)
     public String showForm(Model model) {
@@ -43,18 +46,17 @@ public class ImageParserController {
     public String processForm(
             @RequestParam String folderPath,
             @RequestParam String url,
-            Model model,
-            HttpServletRequest request) {
+            Model model) {
 
         try {
             String html = htmlDownloader.downloadHtml(url);
             List<String> parseImageUrls = imageParser.parseImageUrls(html);
+            imageDownloader.downloadImages(parseImageUrls, ConfJs.getInstance().getApp().getOutputDir() + File.separator + folderPath);
 
 
             model.addAttribute("folderPath", folderPath);
             model.addAttribute("url", url);
             model.addAttribute("message", OK_MESSAGE);
-
 
 
             return "parsing-form";
